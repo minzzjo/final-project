@@ -12,6 +12,7 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* 서버 연결 후 다시 수정해야 함 */}
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn/>}/>

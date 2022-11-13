@@ -1,12 +1,11 @@
-import React from 'react'
-import styled from 'styled-components';
-import Footer from '../components/Layout/Footer';
-import Header from '../components/Layout/Header';
-import Layout from '../components/Layout/Layout';
+import React from "react";
+import styled from "styled-components";
+import Footer from "../components/Layout/Footer";
+import Header from "../components/Layout/Header";
+import Layout from "../components/Layout/Layout";
 import MyPage from "./MyPage";
 
 const Home = () => {
-
   return (
     <HomePage>
       <Layout>
@@ -15,11 +14,10 @@ const Home = () => {
         <Footer />
       </Layout>
     </HomePage>
-    
-  )
-}
+  );
+};
 
-export default Home ;
+export default Home;
 
 const HomePage = styled.div`
   /* width: 90%; */

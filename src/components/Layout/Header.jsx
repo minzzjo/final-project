@@ -1,32 +1,31 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom/dist';
-import styled from 'styled-components';
+import React from "react";
+import { useNavigate } from "react-router-dom/dist";
+import styled from "styled-components";
 import { ReactComponent as ArrowBack } from "../../img/arrow_back.svg";
 import { ReactComponent as Logout } from "../../img/logout.svg";
 
 const Header = () => {
-
   const navigate = useNavigate();
   const onClickMove = () => {
     navigate(-1);
   };
 
   const onClickHome = () => {
-    navigate("/")
-  }
+    navigate("/");
+  };
 
   return (
     <Layout>
       <button onClick={() => onClickMove()}>
-        <ArrowBack/>
+        <ArrowBack />
       </button>
       <h2 onClick={() => onClickHome()}>Cmung</h2>
       <button>
-        <Logout/>
+        <Logout />
       </button>
     </Layout>
   );
-}
+};
 
 export default Header;
 
