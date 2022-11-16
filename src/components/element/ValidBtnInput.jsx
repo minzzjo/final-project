@@ -17,7 +17,7 @@ export default function ValidBtnInput({
   defaultText,
   handleValueCheck,
   isCheck,
-  setIsCheck,
+  setIsCheck
 }) {
   const [isError, setIsError] = useState(true);
   const [isOnCheck, setIsOnCheck] = useState(false); //중복체크를 on 할 것인지 안할것인지 판별 여부
@@ -72,11 +72,7 @@ export default function ValidBtnInput({
       {isCheck ? (
         <CheckSuccessBnt>확인</CheckSuccessBnt>
       ) : (
-        <CheckBnt
-          isOnCheck={isOnCheck}
-          disabled={!isOnCheck ? true : false}
-          onClick={handleCheck}
-        >
+        <CheckBnt isOnCheck={isOnCheck} disabled={!isOnCheck ? true : false} onClick={handleCheck}>
           중복확인
         </CheckBnt>
       )}
@@ -91,7 +87,7 @@ ValidBtnInput.defaultProps = {
   setValue: () => {},
   isCheck: false,
   setIsCheck: () => {},
-  handleValueCheck: () => {},
+  handleValueCheck: () => {}
 };
 
 const Container = styled.div`
@@ -116,8 +112,7 @@ const CheckBnt = styled(Button)`
   top: 10px;
   width: 100px;
   height: 40px;
-  border: ${({ isOnCheck }) =>
-    isOnCheck ? "1px solid #ff7775;" : "1px solid #d9d9d9"};
+  border: ${({ isOnCheck }) => (isOnCheck ? "1px solid #ff7775;" : "1px solid #d9d9d9")};
   color: ${({ isOnCheck }) => (isOnCheck ? "#FF7775" : "#3C3C3C")};
   font-size: 16px;
   border-radius: 100px;

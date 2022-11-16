@@ -1,37 +1,38 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { __postMyPage } from "../../redux/modules/mypageSlice";
+import { __addPost } from "../../redux/modules/postSlice";
 
 const Image = () => {
-  const [imgUrl, setImgUrl] = useState(null);
-  const [imgFile, setImgFile] = useState("");
-  const imgRef = useRef();
+  const [imgUrl, setImgUrl] = useState(null)
+  const [imgFile, setImgFile] = useState("")
+  const imgRef = useRef()
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+
 
   const onChangeImg = () => {
-    const reader = new FileReader();
+    const reader = new FileReader()
 
-    const img = imgRef.current.files[0];
-    reader.readAsDataURL(img);
+    const img = imgRef.current.files[0]
+    reader.readAsDataURL(img)
     reader.onloadend = () => {
-      setImgUrl(reader.result);
-      setImgFile(img);
-    };
-  };
+      setImgUrl(reader.result)
+      setImgFile(img)
+    }
+  }
 
   const onPost = (event) => {
-    event.preventDefault();
-    const formData = new FormData();
+    event.preventDefault()
+    const formData = new FormData()
 
-    formData.append("img", imgFile);
-    dispatch(__postMyPage(formData));
-  };
+    formData.append("img", imgFile)
+    dispatch(__addPost(formData))
+  }
 
   return (
     <div>
       <img
-        src={imgUrl ? imgUrl : "http://localhost:3000" + "/src/img/user.png"}
+        src={imgUrl ? imgUrl : process.env.PUBLIC_URL + "/src/img/user.png"}
         alt="userImg"
       />
       <input
@@ -51,6 +52,6 @@ const Image = () => {
       )}
     </div>
   );
-};
+}
 
 export default Image;

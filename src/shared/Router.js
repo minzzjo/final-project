@@ -1,25 +1,35 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
+import SignIn from "../pages/SignIn"
 import SignUp from "../pages/SignUp";
-import SignIn from "../pages/SignIn";
-import Post from "../pages/Post";
-import Chatroom from "../pages/Chatroom"
+import Form from "../components/features/Form";
 import MyPage from "../pages/MyPage";
-import ProfileEdit from "../pages/ProfileEdit";
+import Detail from "../pages/Detail";
+import PostList from "../components/features/PostList";
+import CreateReadChat from "../pages/chatting/ReadChat";
+
+
+// 추가
+import OAuth2RedirectHandler from "../components/features/OAuth2RedirectHandler"
+import MainLogin from "../pages/MainLogin";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* 서버 연결 후 다시 수정해야 함 */}
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<SignIn/>}/>
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn/>}/>
-        <Route path="/posts" element={<Post />} />
-        <Route path="/chat" element={<Chatroom />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/profileedit" element={<ProfileEdit/>}/>
+        <Route path="/form" element={<Form />} />
+        <Route path="/mypage" element={<MyPage/>}/>
+        <Route path="/detail/:id" element={<Detail/>}/>
+        <Route path="/postlist" element={<PostList/>}/>
+      {/* 추가 */}
+      <Route path="/auth/member/kakao/callback" element={<OAuth2RedirectHandler />} />
+      <Route path='/MainLogin' element={<MainLogin />} />
+      <Route path="/CreateReadChat/:id" element={<CreateReadChat />} />
+
       </Routes>
     </BrowserRouter>
   );

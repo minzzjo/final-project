@@ -1,40 +1,60 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-
-// 게시글 1개에 들어가는 내용 작성
+import React, { useEffect , useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useParams } from "react-router-dom"
+import postSlice, { __getPostTime , __getKeyword , __getCategory } from "../../redux/modules/postSlice"
+import PostList from "../features/PostList"
+// 검색
 const Content = () => {
-  const posts = useSelector((state) => state.post.post);
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  // 리스트
+  const posts  = useSelector((state) => state.post.post)
+  const params = useParams
+  //전체조회
+  useEffect(() => {
+    dispatch(
+      __getPostTime()
+    )
+  }, [params]);
+  
+  //검색
+  const [ getSearch , setGetSearch ] = useState({search:""});
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setGetSearch({...getSearch,[name]: value,});
+  };
+  
+  //키워드검색 #제목 #내용 #지역
+  const onClickSearch = () =>{ 
+    if (getSearch.search.trim() === "" )  {
+      return alert("내용을 입력해주세요.");
+    } 
+    dispatch(__getKeyword(getSearch.search));
+  } 
+  
+  const onClickAll = () =>{ //전체검색
+    dispatch(__getPostTime());
+  }
 
+  const onClickBig = () =>{ //대형검색
+    const data = posts.response.filter((item)=> item.category === "대형" )
+    dispatch(__getCategory(data));
+    console.log("데이터",data)
+  } 
+    
+  console.log("페이",posts)
+  // console.log("d",solt[0]) //전체조회가 딱 한번밖에 안된다. //대형을누르면 한번더 랜더링 해야한다.
+  // https://wepungsan.kro.kr/api/filter?category=대형
   return (
-    <div key={posts.postId}>
-      <div className="writer-info">
-        <span>{posts.nickname}</span>
-        <span>
-          {posts.name}/{posts.age}/{posts.category}
-        </span>
-      </div>
+      <div>
+        <button type='button' onClick={onClickAll}>전체</button>
+        <button type='button' name="대형" onClick={onClickBig}>대형</button>
+        <div className="검색">
+          <input type="text" name="search" defaultValue={getSearch.search || ""} onChange={onChangeHandler} />
+          <button onClick={onClickSearch}>검색</button>
+        </div>
+        <PostList posts={posts} key={posts.postId} />
+      </div> 
+  )
+}
 
-      <div className="multi-img">
-        <div></div>
-      </div>
-
-      <div className="content-body">
-        <span>{posts.title}</span>
-        <span>{posts.content}</span>
-      </div>
-
-      <button
-        onClick={() => {
-          navigate("/chat");
-        }}
-      >
-        작성자와 1:1 채팅 바로가기
-      </button>
-    </div>
-  );
-};
-
-export default Content;
+export default Content
