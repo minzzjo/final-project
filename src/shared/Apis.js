@@ -13,8 +13,10 @@ const token = axios.create({
   // 추후에 로컬에서 서버 주소로 변경해야 함
   baseURL: process.env.REACT_APP_URL,
   headers: {
-    accept: "application/json",
-    Access_Token: `${cookies.get("Access_Token")}`,
+    Access_Token:
+      localStorage.getItem("Access_Token") === undefined
+        ? ""
+        : localStorage.getItem("Access_Token"),
   },
   withCredentials: true,
 })
@@ -24,8 +26,10 @@ const file = axios.create({
   baseURL: process.env.REACT_APP_URL,
   headers: {
     enctype: "multipart/form-data",
-    Access_Token: `${cookies.get("Access_Token")}`,
-    // Refresh_Token: `${cookies.get("Refresh_Token")}`,
+    Access_Token:
+      localStorage.getItem("Access_Token") === undefined
+        ? ""
+        : localStorage.getItem("Access_Token"),
   },
   withCredentials: true,
 })
@@ -47,7 +51,7 @@ export const Apis = {
   // postFileAX: (payload) => file.post(`/api/posts/${payload}`),
   postFileAX: (payload) => file.post(`/api/posts`,payload),
   // 게시글 수정
-  putPostAX: (payload) => file.put(`/api/posts/${payload.id}`, payload.content),
+  putPostAX: (id,payload) => file.put(`/api/posts/${id}`, payload),
   // 게시글 삭제
   deletePostAX: (id) => token.delete(`/api/posts/${id}`),
   // 게시글 전체 조회
@@ -69,7 +73,7 @@ export const Apis = {
   // 마이페이지 반려동물 정보 작성
   postMyPetAX: (payload) => token.get(`api/mypage/pet`, payload),
   // 마이페이지 반려동물 정보 수정
-  putMyPetAX: (petId) => token.get(`api/mypage/pet/${petId}`),
+  putMyPetAX: (petId, payload) => token.get(`api/mypage/pet/${petId}`, payload),
   // 마이페이지 반려동물 정보 삭제
   deleteMyPetAX: (petId) => token.get(`api/mypage/pet/${petId}`),
 
@@ -83,7 +87,8 @@ export const Apis = {
   // 게시글 검색 - 특정 단어 포함 게시글 조회
   getKeywordAX: (searchKeyword) => token.get(`/api/search/?content=${searchKeyword}`),
   // 게시글 검색 - 카테고리별 게시글 조회 (대형/중형/소형만 보기)
-  getFilterAX: (categoryKeyword) => token.get(`/api/filter&category=${categoryKeyword}`)
-  
+  getFilterAX: (categoryKeyword) => token.get(`/api/filter&category=${categoryKeyword}`),
+  // 무한스크롤
+  getScrollAX: (infinitescroll) => token.get(`/api/posts?&size=1&page=1${infinitescroll}`)
 }
 export default Apis

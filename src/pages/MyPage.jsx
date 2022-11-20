@@ -1,74 +1,105 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { __deleteMyPet, __getMyPage, __getMyPet, __getMyPost } from "../redux/modules/mypageSlice";
-import UserInfo from "../components/features/UserInfo";
-import MyPosts from "../components/features/MyPosts";
-import PetInfo from "../components/features/PetInfo";
-import Header from "../components/Layout/Header";
-import Footer from "../components/Layout/Footer";
+import { __getMyPage, __getMyPet, __getMyPost } from "../redux/modules/mypageSlice";
+import User from "../img/user.png";
+import AddPetInfo from "../components/features/AddPetInfo"
+import Mytab from "../components/features/mypageTab";
+import useModal from "../components/modal/useModal";
+import Modal from "../components/modal/modal";
+import AddUserPic from "../components/features/AddUserPic";
 
-// 전체 마이페이지 뷰
+// 전체 마이페이지 뷰 - 프로필사진, 닉네임, (평점), 내가 쓴 글 목록, 나의 반려동물 목록
+
+// post{id}, myInfo{id, nickname, userImage}, myPost[{id, title, content, price, categoryName, state, local, date, imgs:["URL"]}],
+// myPic{userImage}, myPets: [{petId, name, age, categoryName}, {""}, {""}]
+
 const MyPage = () => {
-  const mypage = useSelector((state) => state.mypage.myInfo);
-  const myPet = useSelector((state) => state.mypage.myPet)
-  console.log("마이페이지 정보", mypage);
-
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  // 반려동물 정보 삭제
-  const onDeletePetInfo = () => {
-    dispatch(__deleteMyPet(myPet.petId))
-    window.confirm("정말로 삭제하시겠습니까?")
-    navigate("/mypage")
-  }
+  const all = useSelector((state) => state.mypage);
+  const post = useSelector((state) => state.mypage.post);
+  const myInfo = useSelector((state) => state.mypage.myInfo);
+  const myPosts = useSelector((state) => state.mypage.myPost);
+  const myPic = useSelector((state) => state.mypage.myPic);
+  const myPets = useSelector((state) => [state.mypage.myPets]);
 
-  useEffect(() => {
-    dispatch(__getMyPost());
-  }, [dispatch]);
+  console.log("전체 셀렉터", all);
 
-  useEffect(() => {
-    dispatch(__getMyPet());
-  }, [dispatch]);
+  console.log("셀렉터post", post);
+  console.log("셀렉터myInfo", myInfo);
+  console.log("셀렉터myPosts", myPosts);
+  console.log("셀렉터myPic", myPic);
+  console.log("셀렉터myPets", myPets);
 
+  const [modalOption, showModal] = useModal();
+
+    const onClickPic = useCallback(() => {
+      showModal(
+        true,
+        "프로필 사진 변경",
+        () => console.log("모달 on"),
+        null,
+        <AddUserPic />
+      )
+    }, [modalOption])
+
+  const onClickPet = useCallback(() => {
+    showModal(
+      true,
+      "반려동물 정보 등록",
+      () => console.log("모달 ON"),
+      null,
+      <AddPetInfo />
+    );
+  }, [modalOption]);
+
+  // 마이페이지 회원정보 조회
   useEffect(() => {
     dispatch(__getMyPage());
-  }, [dispatch]);
+  }, []);
 
+  // 마이페이지 내가 쓴 글 조회
+  useEffect(() => {
+    dispatch(__getMyPost());
+  }, []);
+
+  // 반려동물 정보 조회
+  useEffect(() => {
+    dispatch(__getMyPet());
+  }, []);
 
   return (
     <Layouts>
-      <Header />
-      <div>
-        여기는 마이페이지
-      </div>
       <div className="user-info">
-        <UserInfo mypage={mypage} />
-        <button>프로필 사진</button>
+        <UserImg
+          src={myInfo.userImage === "" ? myInfo.userImage : User}
+          alt="pic"
+        />
+        <button onClick={onClickPic}>프로필사진 변경</button>
+        <Modal modalOption={modalOption} />
+
+        <div>
+          <h1>{myInfo.nickname}</h1>
+          <div>
+            <button onClick={onClickPet}>반려동물 등록</button>
+            <Modal modalOption={modalOption} />
+          </div>
+        </div>
       </div>
 
       <div>
-        <hr />
-        <button>내가 쓴 글</button>
-        <button>반려동물 정보</button>
-        <hr />
+        <Mytab />
       </div>
 
-      {/* 내가 쓴 게시글 여러개 붙이기 */}
-      <MyPosts post={mypage} />
+      {/* 내가 쓴 게시글 여러개 붙이기 - myPost[{id, title, content, price, categoryName, state, local, date, imgs:["URL"]}] */}
+      {/* <MyContent myPost={myPosts} /> */}
 
-      {/* 반려동물 정보 여러개 붙이기 */}
-      {myPet !== undefined &&
-        myPet.map((pet) => {
-            <PetInfo key={pet.petId} myPet={pet} />;
-        })}
-      <div>
-        <button>수정</button>
-        <button onClick={onDeletePetInfo}>삭제</button>
-      </div>
-      <Footer />
+      {/* <br /> */}
+      {/* 반려동물 정보 여러개 붙이기 - myPets: [{petId, name, age, categoryName}, {""}, {""}] */}
+      {/* <div>
+        <PetInfo myPets={myPets} />
+      </div> */}
     </Layouts>
   );
 };
@@ -77,8 +108,14 @@ export default MyPage;
 
 const Layouts = styled.div`
   width: 95%;
-  max-width: 414px;
-  height: 785px;
+  max-width: 360px;
+  height: 640px;
   margin: auto;
-  /* background-color: lightpink; */
+  background-color: lightpink;
+`;
+
+const UserImg = styled.img`
+  width: 128px;
+  height: 128px;
+  border-radius: 100%;
 `;

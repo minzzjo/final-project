@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
@@ -8,15 +9,17 @@ import { __getConimal } from"../redux/modules/postSlice"
 const Detail = () => {
   const navigator = useNavigate();
   const {id}  = useParams()
-  const posts = useSelector((state)=>state.post.post)	
+  const posts = useSelector((state) => state.post.post)	
+  console.log("@detail",posts);
   const onClickMove = () => {
     navigator(-1);
   };
   
   return (
-      <>
-      <p>디테일페이지로이동했지롱</p>
-      <button onClick={() => onClickMove()}>이전버튼</button>
+    <>
+      <Layouts>
+        <p>디테일페이지로이동했지롱</p>
+      <BackBtn onClick={() => onClickMove()}>이전버튼</BackBtn>
         {
           posts.response.map((post) => (post.id === Number(id) ) && (
           <>
@@ -30,10 +33,22 @@ const Detail = () => {
           )
           )
         }
+      </Layouts>
+      
       </>
   )
 }
 
-export default Detail ;
+export default Detail;
 
+const Layouts = styled.div`
+  width: 360px;
+  max-height: 640px;
+  margin: auto;
+  overflow: auto;
+  /* background-color: lightpink; */
+`;
 
+const BackBtn = styled.button`
+  cursor: pointer;
+`

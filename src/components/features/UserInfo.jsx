@@ -1,35 +1,26 @@
-import React, { useEffect ,useState} from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 import { __getMyPage } from "../../redux/modules/mypageSlice";
 
 // 마이페이지 상단에 나타나는 회원정보
-const UserInfo = () => {
-  const dispatch = useDispatch();
-  const [state1 , setState1] = useState(true);
-  const mypage = useSelector((state) => state.mypage.myInfo);
+// myInfo{id, nickname, userImage}
+
+const UserInfo = ({ myInfo }) => {
+  const dispatch = useDispatch()
   
   useEffect(() => {
-    console.log("userInfo", mypage);
-  }, [state1])
-  
-  
+    dispatch(__getMyPage())
+  }, [])
 
   return (
-    <div>
-      <button onClick={()=>{setState1(!state1)}}>아무거나 버튼</button>
-      {/* <div>
-        등록된 유저이미지가 없으면 기본 이미지를 보여주고, 유저이미지가 있으면 그걸로 보여준다
-        {mypage[0].userImage !== undefined ? (
-          <UserImg src={mypage[0].userImage} alt="profile" />
-        ) : (
-          <img src="../../img/user.png" alt="userImg" />
-        )}
-      </div>
+    <div key={myInfo.id}>
+      <UserImg>
+        <img src={myInfo.userImage} alt="profile-pic" /></UserImg>
       <div>
-        <h2>{mypage[0].nickname}</h2>
-        <UserRate>회원평점 : {mypage.rank}</UserRate>
-      </div> */}
+        <h2>{myInfo.nickname}</h2>
+        {/* <UserRate>회원평점 : {myInfo.rank}</UserRate> */}
+      </div>
     </div>
   );
 }

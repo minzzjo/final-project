@@ -7,7 +7,7 @@ import Form from "../components/features/Form";
 import MyPage from "../pages/MyPage";
 import Detail from "../pages/Detail";
 import PostList from "../components/features/PostList";
-import CreateReadChat from "../pages/chatting/ReadChat";
+import ChatRoomPage from "../pages/chatting/ChatRoomPage";
 
 
 // 추가
@@ -28,8 +28,7 @@ const Router = () => {
       {/* 추가 */}
       <Route path="/auth/member/kakao/callback" element={<OAuth2RedirectHandler />} />
       <Route path='/MainLogin' element={<MainLogin />} />
-      <Route path="/CreateReadChat/:id" element={<CreateReadChat />} />
-
+        <Route path="/ChatRoomPage" element={<ChatRoomPage />} />
       </Routes>
     </BrowserRouter>
   );
