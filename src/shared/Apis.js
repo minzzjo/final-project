@@ -51,14 +51,14 @@ export const Apis = {
   // postFileAX: (payload) => file.post(`/api/posts/${payload}`),
   postFileAX: (payload) => file.post(`/api/posts`,payload),
   // 게시글 수정
-  putPostAX: (id,payload) => file.put(`/api/posts/${id}`, payload),
+  putPostAX: (payload) => file.put(`/api/posts/${payload.id}`, payload),
   // 게시글 삭제
   deletePostAX: (id) => token.delete(`/api/posts/${id}`),
   // 게시글 전체 조회
   getPostTimeAX: () => token.get(`/api/posts`),
   // 게시글 상세 조회
   getDetailAX: (id) => token.get(`/api/posts/${id}`),
-  // 게시글 진행 상테 수정
+  // 게시글 진행 상태 수정
   getStateAX: (id) => token.put(`/api/posts/${id}/state`),
 
   // 마이페이지 조회
@@ -71,11 +71,11 @@ export const Apis = {
   // 마이페이지 반려동물 정보 조회
   getMyPetAX: () => token.get(`api/mypage/pet`),
   // 마이페이지 반려동물 정보 작성
-  postMyPetAX: (payload) => token.get(`api/mypage/pet`, payload),
+  postMyPetAX: (payload) => token.post(`api/mypage/pet`, payload),
   // 마이페이지 반려동물 정보 수정
-  putMyPetAX: (petId, payload) => token.get(`api/mypage/pet/${petId}`, payload),
+  putMyPetAX: (payload) => token.put(`api/mypage/pet/${payload.id}`, payload),
   // 마이페이지 반려동물 정보 삭제
-  deleteMyPetAX: (petId) => token.get(`api/mypage/pet/${petId}`),
+  deleteMyPetAX: (id) => token.delete(`api/mypage/pet/${id}`),
 
   // 다른회원 마이페이지 정보 조회
   getUserInfoAX: (email) => noToken.get(`api/users/${email}`),
