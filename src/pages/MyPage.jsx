@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { __getMyPage, __getMyPet, __getMyPost } from "../redux/modules/mypageSlice";
 import User from "../img/user.png";
 import AddPetInfo from "../components/features/AddPetInfo"
-import Mytab from "../components/features/MypageTab";
+import Mytab from "../components/features/mypageTab";
 import useModal from "../components/modal/useModal";
-import Modal from "../components/modal/modal";
+import Modal from "../components/modal/Modal";
 import AddUserPic from "../components/features/AddUserPic";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
@@ -187,6 +187,7 @@ const Title = styled.div`
   justify-content: center;
   margin: 45.82px auto 30.5px;
   gap: 10px;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
 `;
 
 const UserImg = styled.img`
@@ -219,7 +220,7 @@ const Info = styled.div`
     justify-content: center;
 
     color: #fff;
-    font-family: "SFPro", sans-serif;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
     font-weight: bold;
     font-size: 12px;
     margin-bottom: 3.9px;
@@ -245,7 +246,7 @@ const UserInfo = styled.div`
   /* justify-content: center; */
 
   span {
-    font-family: 'SFPro', sans-serif;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
     font-weight: 700;
   }
 `;

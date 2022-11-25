@@ -44,6 +44,7 @@ body.active-modal {
     margin-top: 30px;
     color: #ED9071;
     width: 80px;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
     font-weight: 600;
     overflow:hidden; 
     text-overflow:ellipsis;
@@ -54,6 +55,7 @@ body.active-modal {
   .pink2{
     width: 110px;
     color: #ED9071;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
     font-weight: 600;
     overflow:hidden; 
     text-overflow:ellipsis;
@@ -83,6 +85,7 @@ body.active-modal {
     background-color: none;
     border:none;
     background-color: #ED9071;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
     font-weight: 800;
     border-radius: 0 0 10px 0;
   }

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { __deleteMyPost, __getMyPost } from "../../redux/modules/mypageSlice";
-import Modal from "../modal/modal";
+import Modal from "../modal/Modal";
 import useModal from "../modal/useModal";
 import EditDetail from "./EditDetail";
 import { ReactComponent as DateColor } from "../../img/datecolor.svg"
@@ -130,8 +130,8 @@ const Main = styled.div`
 `;
 
 const State = styled.span`
-  color: #ED9071;
-  font-family: "SFPro", sans-serif;
+  color: #ed9071;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 15px;
   font-weight: 900;
   margin-right: 7px;
@@ -143,14 +143,14 @@ const Title = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 15px;
 `;
 
 const Date = styled.span`
   width: 75px;
   height: 12px;
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 10px;
   color: "#ED9071";
   margin-left: 19px;
@@ -165,7 +165,7 @@ const Down = styled.div`
 const CreatedAt = styled.span`
   width: 73px;
   height: 12px;
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 10px;
   color: "#B0B0B0";
   margin-top: 10px;

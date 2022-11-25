@@ -71,6 +71,7 @@ const StChatForm = styled.form`
     text-align: justify;
     resize: none;
     border: none;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
     font-size: 1.3rem;
     padding-left: 1rem;
     height: 3.4rem;

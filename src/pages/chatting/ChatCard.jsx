@@ -60,6 +60,7 @@ const STcontentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   h3 {
+    font-family: "Spoqa Han Sans Neo", sans-serif;
     font-size: 0.9rem;
     font-weight: 400;
     padding-bottom: 0.5rem;
@@ -91,6 +92,7 @@ const STcontentWrapper = styled.div`
 const STchatCard = styled.div`
   text-align: justify;
   display: inline-block;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 1.3rem;
   border-radius: 0.4rem;
   padding: 0.5rem;

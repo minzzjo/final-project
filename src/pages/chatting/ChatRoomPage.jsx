@@ -288,6 +288,7 @@ const StChatListContainer = styled.div`
     width: 60%;
     background-color: #ffffff88;
     border-radius: 15px;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
     font-size: 0.9rem;
     padding: 2px 0;
     letter-spacing: 0.2rem;

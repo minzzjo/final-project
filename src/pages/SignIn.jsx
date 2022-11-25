@@ -158,7 +158,7 @@ const Title = styled.span`
   align-items: center;
   justify-content: center;
 
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: medium;
 `;
 
@@ -185,7 +185,7 @@ const OR = styled.span`
   justify-content: center;
 
   margin: 14px auto 4px;
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
 `;
 
 const Input = styled.input`
@@ -203,13 +203,13 @@ const Input = styled.input`
   margin: 9px auto 9px;
   padding-left: 14.69px;
 
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: medium;
 
   ::placeholder {
     font-size: 18px;
     color: #787878;
-    font-family: "SFPro", sans-serif;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
   }
 `;
 
@@ -219,7 +219,7 @@ const Red = styled.span`
   font-size: 10px;
   font-weight: bold;
   margin: 9px 0 0 20px;
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: medium;
 `;
 
@@ -228,7 +228,7 @@ const Green = styled.span`
   font-size: 10px;
   font-weight: bold;
   margin: 9px 0 9px 20px;
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: medium;
 `;
 
@@ -236,6 +236,7 @@ const LoginBtn = styled.button`
   width: 320px;
   height: 50px;
 
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: #fff;
@@ -254,6 +255,7 @@ const SignupBtn = styled.button`
   width: 320px;
   height: 50px;
 
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: #fff;
@@ -266,7 +268,4 @@ const SignupBtn = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-
-  font-family: "SFPro", sans-serif;
-  font-weight: medium;
 `;

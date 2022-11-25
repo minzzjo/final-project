@@ -137,7 +137,7 @@ const TopLeft = styled.div`
   /* background-color: lightblue; */
   width: 300px;
   height: 44.78px;
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: bold;
   font-size: 12px;
   line-height: 16.24px;
@@ -148,7 +148,7 @@ const Down = styled.div`
   width: 317.9px;
   height: 27.95px;
 
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: medium;
 
   display: flex;
@@ -164,7 +164,7 @@ const DownLeft = styled.div`
   width: 150px;
   height: 17px;
 
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: 540;
 
   display: flex;
@@ -183,7 +183,7 @@ const DownRight = styled.div`
   line-height: 19px;
   border-radius: 2px;
 
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 16px;
   font-weight: 590;
   color: #fff;

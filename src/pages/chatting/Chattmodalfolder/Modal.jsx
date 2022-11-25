@@ -93,19 +93,21 @@ const Button = styled. button`
   background:transparent;
 `
 const HeadRight2 = styled.button`
-font-size: 0.9rem;
-width: 30px;
-height: 40px;
-color: #00251a;
-border: 0;
-cursor: pointer;
-font-weight: 600;
-background-color: transparent;
-justify-content: center;
-.head-ico {
-  font-size: 1.6rem;
-  margin: 5px;
-  color: white;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-size: 0.9rem;
+  width: 30px;
+  height: 40px;
+  color: #00251a;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
   background-color: transparent;
-}
-`
+  justify-content: center;
+  .head-ico {
+    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-size: 1.6rem;
+    margin: 5px;
+    color: white;
+    background-color: transparent;
+  }
+`;

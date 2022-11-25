@@ -258,11 +258,12 @@ const Green = styled.div`
 color:green;
 `
 
-const ErrorMessageWrap =styled.div`
-margin:4px;
-color:#ef0000;
-font-size:6px;
-`
+const ErrorMessageWrap = styled.div`
+  margin: 4px;
+  color: #ef0000;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-size: 6px;
+`;
 
 const FlexInput = styled.span``
 
@@ -301,26 +302,27 @@ const Input = styled.input`
   height: 40px;
   margin-bottom: 8px;
   padding: 10px;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 12px;
   border-radius: 4px;
-  background: #FAFAFA;
+  background: #fafafa;
   &:focus {
-    outline: 1px solid #ADADAD;
+    outline: 1px solid #adadad;
   }
 `;
 
 const SignupButton = styled.button`
-
   color: white;
   border: none;
   border-radius: 5px;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: bold;
   width: 250px;
   height: 30px;
   margin-top: 40px;
   cursor: pointer;
   &:disabled {
-    background-color: #B2DFFC;
+    background-color: #b2dffc;
   }
 `;
 
@@ -338,10 +340,10 @@ const LogoBox = styled.div`
 const SignupText = styled.div`
   width: 200px;
   text-align: center;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 17px;
   line-height: 20px;
   font-weight: bold;
-
 `;
 
 
@@ -355,8 +357,8 @@ const LoginBox = styled.div`
   justify-content: center;
   align-items: center;
   span {
-
     margin-left: 4px;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
     font-weight: bold;
     // 버튼 누르면 손모양 나오게 하는 마우스 커서
     cursor: pointer;

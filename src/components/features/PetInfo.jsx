@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __deleteMyPet, __getMyPet } from "../../redux/modules/mypageSlice";
-import Modal from "../modal/modal";
+import Modal from "../modal/Modal";
 import useModal from "../modal/useModal";
 import EditPetInfo from "./EditPetInfo";
 import { ReactComponent as DateColor } from "../../img/datecolor.svg";
@@ -129,7 +129,7 @@ const Main = styled.div`
 
 const Category = styled.span`
   color: #ed9071;
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 15px;
   font-weight: 900;
   margin-right: 7px;
@@ -141,7 +141,7 @@ const Name = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 15px;
 `;
 
@@ -154,7 +154,7 @@ const Down = styled.div`
 const Age = styled.span`
   width: 73px;
   height: 12px;
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 10px;
   color: "#B0B0B0";
   margin-top: 10px;

@@ -126,7 +126,7 @@ const Category = styled.button`
   /* left: 20px; */
   /* top: 108px; */
 
-  font-family: "SFPro", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 14px;
   font-weight: 550;
 
@@ -135,6 +135,8 @@ const Category = styled.button`
   border: none;
   position: relative;
   z-index: 100;
+
+  cursor: pointer;
 `;
 
 const ImgAll = styled.img`

@@ -318,6 +318,7 @@ const Content = styled.div`
     ::placeholder {
       color: #5e5e5e;
       /* padding-left: 19.96px; */
+      font-family: "Spoqa Han Sans Neo", sans-serif;
       font-size: 16px;
     }
   }
@@ -333,6 +334,7 @@ const Price = styled.input`
 const Won = styled.span`
   margin-left: -30px;
   color: #787878;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: 300;
   font-size: 16px;
 `;
@@ -345,11 +347,11 @@ const Select = styled.div`
     width: 318px;
     height: 33.78px;
     padding-left: 19.96px;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
     font-size: 16px;
     ::placeholder {
       color: #5e5e5e;
     }
-    
   }
 `;
 
@@ -366,6 +368,7 @@ const FormBtn = styled.button`
   width: 180px;
   height: 45.16px;
   border: none;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 16px;
   font-weight: 590;
 `;

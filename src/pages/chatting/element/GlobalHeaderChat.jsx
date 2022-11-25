@@ -57,6 +57,7 @@ const NavItem = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 1.8rem;
   gap: 2rem;
   cursor: pointer;
