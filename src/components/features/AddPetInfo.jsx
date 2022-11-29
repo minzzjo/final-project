@@ -35,7 +35,7 @@ const ProfileEdit = () => {
     }
     console.log("우리강아지 페이로드", myPet);
     dispatch(__addMyPet(myPet));
-    window.location.reload("/mypage");
+    // window.location.reload("/mypage");
   };
 
   return (

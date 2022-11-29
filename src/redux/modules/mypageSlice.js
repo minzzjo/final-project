@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Apis from "../../shared/Apis"
 
-// post{id}, myInfo{id, nickname, userImage}, myPost[{id, title, content, price, categoryName, state, local, date, imgs:["URL"]}],
-// myPic{userImage}, myPets: [{id, name, age, categoryName}, {""}, {""}]
 const initialState = {
   post: {id: 0,},
   myInfo: {
@@ -191,7 +189,6 @@ const mypageSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = false;
       console.log("게시글 수정 스토어 페이로드", action.payload);
-      // state.myPost = action.payload;
       state.myPost.response.push(action.payload.data)
       
     },
@@ -253,7 +250,6 @@ const mypageSlice = createSlice({
       state.isSuccess = false;
       console.log("프사 이미지는", action.payload);
       state.myPic = action.payload;
-      // state.myPic = [...state.post, {...action.payload}]
     },
     [__postMyImg.rejected]: (state, action) => {
       state.isLoading = false;

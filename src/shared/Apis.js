@@ -5,13 +5,15 @@ const cookies = new Cookies()
 
 const noToken = axios.create({
   // 추후에 로컬에서 서버 주소로 변경해야 함
-  baseURL: process.env.REACT_APP_URL,
+  baseURL: process.env.REACT_APP_URL, 
+  //process.env.REACT_APP_URL,
   withCredentials: true,
 })
 
 const token = axios.create({
   // 추후에 로컬에서 서버 주소로 변경해야 함
-  baseURL: process.env.REACT_APP_URL,
+  baseURL:process.env.REACT_APP_URL, 
+  //process.env.REACT_APP_URL,
   headers: {
     Access_Token:
       localStorage.getItem("Access_Token") === undefined
@@ -23,7 +25,8 @@ const token = axios.create({
 
 const file = axios.create({
   // 추후에 로컬에서 서버 주소로 변경해야 함
-  baseURL: process.env.REACT_APP_URL,
+  baseURL:process.env.REACT_APP_URL,
+  //process.env.REACT_APP_URL,
   headers: {
     enctype: "multipart/form-data",
     Access_Token:
@@ -42,11 +45,17 @@ export const Apis = {
   //닉네임체크
   nicknameAX: (nickname) => noToken.post(`/auth/nicknameCheck`,nickname),
   // 로그인
-  loginAX: (loginInfo) => noToken.post(`auth/login`, loginInfo),
-
+  loginAX: (loginInfo) => noToken.post(`/auth/login`, loginInfo),
   // 소셜 로그인 - 카카오
-  loginKakaoAX: (loginInfo) => token.post(`auth/kakaoLogin`, loginInfo),
+  loginKakaoAX: (loginInfo) => token.post(`auth/kakaoLogin`, loginInfo), 
 
+  //createRoom
+  CreateRoom: (createRoom) => token.post(`/room`, createRoom),
+  // getRoomList: () => token.get(`/roomList`),
+  getRoomList: () => token.get(`/roomList`),
+
+  getInitialChatList: (getInitialList) => token.post(`/roomInfo`,getInitialList),
+  
   // 게시글 작성
   // postFileAX: (payload) => file.post(`/api/posts/${payload}`),
   postFileAX: (payload) => file.post(`/api/posts`,payload),
@@ -55,6 +64,8 @@ export const Apis = {
   // 게시글 삭제
   deletePostAX: (id) => token.delete(`/api/posts/${id}`),
   // 게시글 전체 조회
+  // getPostTimeAX: () => token.get(`/api/posts?&page=0&size=5`),
+  // getPostTimeAX: (payload) => token.get(`/api/posts?size=6&page=${payload}`),
   getPostTimeAX: () => token.get(`/api/posts`),
   // 게시글 상세 조회
   getDetailAX: (id) => token.get(`/api/posts/${id}`),
@@ -67,7 +78,7 @@ export const Apis = {
   getMyPostAX: () => token.get(`/api/mypage/posts`),
   // 마이페이지 프로필 이미지 업로드
   postMyImgAX: (payload) => file.post(`api/mypage/image`, payload),
-
+  
   // 마이페이지 반려동물 정보 조회
   getMyPetAX: () => token.get(`api/mypage/pet`),
   // 마이페이지 반려동물 정보 작성
@@ -76,7 +87,7 @@ export const Apis = {
   putMyPetAX: (payload) => token.put(`api/mypage/pet/${payload.id}`, payload),
   // 마이페이지 반려동물 정보 삭제
   deleteMyPetAX: (id) => token.delete(`api/mypage/pet/${id}`),
-
+  
   // 다른회원 마이페이지 정보 조회
   getUserInfoAX: (email) => noToken.get(`api/users/${email}`),
   // 다른회원 마이페이지 반려동물 정보 조회
@@ -85,10 +96,10 @@ export const Apis = {
   getPostInfoAX: (email) => token.get(`api/users/${email}/posts`),
   
   // 게시글 검색 - 특정 단어 포함 게시글 조회
-  getKeywordAX: (searchKeyword) => token.get(`/api/search/?content=${searchKeyword}`),
+  getKeywordAX: (searchKeyword) => token.get(`/api/search?content=${searchKeyword}`),
   // 게시글 검색 - 카테고리별 게시글 조회 (대형/중형/소형만 보기)
-  getFilterAX: (categoryKeyword) => token.get(`/api/filter&category=${categoryKeyword}`),
-  // 무한스크롤
-  getScrollAX: (infinitescroll) => token.get(`/api/posts?&size=1&page=1${infinitescroll}`)
+  getFilterAX: (categoryKeyword) => token.get(`/api/filter?category=${categoryKeyword}`),
+  // 평점
+  getPostRatingAX: (payload) => token.put(`/rating`,payload),
 }
 export default Apis
