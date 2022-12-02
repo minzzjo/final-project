@@ -99,7 +99,7 @@ const SignIn = () => {
             <SocialLogin>
               <span>또는</span>
               <LogoBtns>
-                <KakaoLogin />
+                <KakaoLogin/>
               </LogoBtns>
             </SocialLogin>
             

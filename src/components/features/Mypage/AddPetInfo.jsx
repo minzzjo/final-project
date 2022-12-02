@@ -30,7 +30,7 @@ const AddPetInfo = ({ onClose }) => {
     }
     console.log("마이펫", myPet);
     dispatch(__addMyPet(myPet));
-    // window.location.reload("/mypage");
+    window.location.reload("/mypage");
   };
 
   return (
@@ -48,7 +48,7 @@ const AddPetInfo = ({ onClose }) => {
                 value={myPet.name || ""}
                 onChange={onChangePetInfo}
                 placeholder="백호"
-                style={{ width: "159.51px", height: "20px" }}
+                style={{ width: "159.51px", height: "25px", marginBottom: "10px" }}
               />
             </div>
             <div>
@@ -59,7 +59,7 @@ const AddPetInfo = ({ onClose }) => {
                 value={myPet.age || ""}
                 onChange={onChangePetInfo}
                 placeholder="4"
-                style={{ width: "136.72px", height: "20px" }}
+                style={{ width: "136.72px", height: "25px" }}
               />
               &nbsp;&nbsp;&nbsp;살
             </div>
@@ -69,7 +69,7 @@ const AddPetInfo = ({ onClose }) => {
                 name="category"
                 value={myPet.category || ""}
                 onChange={onChangePetInfo}
-                style={{ width: "159.51px", height: "20px" }}
+                style={{ width: "159.51px", height: "25px" }}
               >
                 <option default value="all">전체</option>
                 <option value="small">소형 - 6kg 이하 | 20cm 이하</option>
@@ -86,7 +86,7 @@ const AddPetInfo = ({ onClose }) => {
             onClick={onClose}
             style={{
               backgroundColor: "rgba(175, 175, 175, 1)",
-              borderRadius: "0px 0px 0px 4px",
+              borderRadius: "0px 0px 0px 10px",
             }}
           >
             취소
@@ -96,7 +96,7 @@ const AddPetInfo = ({ onClose }) => {
             style={{
               backgroundColor: "rgba(237, 144, 113, 1)",
               color: "rgba(255, 255, 255, 1)",
-              borderRadius: "0px 0px 4px 0px",
+              borderRadius: "0px 0px 10px 0px",
             }}
           >
             완료
@@ -110,9 +110,16 @@ const AddPetInfo = ({ onClose }) => {
 export default AddPetInfo;
 
 const Layout = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 330px;
+  height: 250px;
   margin: auto;
+  background-color: #F6F0EE;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Content = styled.div`
@@ -122,14 +129,14 @@ const Content = styled.div`
   justify-content: left;
   span {
     font-family: "Spoqa Han Sans Neo", sans-serif;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 700;
     line-height: 17.9px;
-    margin: 15.06px 0 19.39px -70px;
+    margin: 25.06px 0 19.39px 0;
   }
   label {
     font-family: "Spoqa Han Sans Neo", sans-serif;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 700;
     line-height: 14.32px;
     margin-right: 15.5px;
@@ -141,7 +148,7 @@ const Content = styled.div`
     margin: 2.95px 0 2.95px 0;
     ::placeholder {
       font-family: "Spoqa Han Sans Neo", sans-serif;
-      font-size: 10px;
+      font-size: 14px;
       font-weight: 400;
       line-height: 11.93px;
       color: rgba(86, 86, 86, 1);
@@ -152,9 +159,9 @@ const Content = styled.div`
     padding-left: 9.54px;
     border: 0.5px solid rgba(237, 144, 113, 1);
     border-radius: 4px;
-    margin: 2.95px 0 20.04px 0;
+    margin: 10.95px 0 24.04px 0;
     font-family: "Spoqa Han Sans Neo", sans-serif;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 11.93px;
     color: rgba(86, 86, 86, 1);
@@ -167,10 +174,10 @@ const Form = styled.div`
 `
 
 const PlaceBtn = styled.div`
-margin-top: -5px;
+/* margin-top: -5px; */
   button {
-    width: 135.07px;
-    height: 27.42px;
+    width: 165px;
+    height: 34.42px;
     border: none;
     font-family: "Spoqa Han Sans Neo", sans-serif;
     font-size: 12px;

@@ -17,11 +17,14 @@ const Header = () => {
 
   return (
     <Layout>
-      <BackArrow onClick={() => onClickMove()} />
+      <BackArrow
+        onClick={() => onClickMove()}
+        style={{ cursor: "pointer" }}
+      />
       {/* <h2 onClick={() => onClickHome()}>Cmung</h2> */}
       <Logo
         onClick={() => onClickHome()}
-        style={{ margin: "20.41px -10px 13.59px" }}
+        style={{ margin: "20.41px -10px 13.59px", cursor: "pointer" }}
       />
       <Menu />
     </Layout>

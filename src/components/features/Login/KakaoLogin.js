@@ -16,10 +16,10 @@ const KakaoLogin = () => {
     return (
     <Btns>
         {/* <Img onClick={()=>alert("준비중 입니다.")} src={require("../../img/NAVERLOGO.png")} alt="네이버 로그인 버튼"  /> */}
-        <Naver onClick={() => alert("준비중 입니다.")} style={{ width: "41px", height: "38px", marginRight: "18px" }} />
+        <Naver onClick={() => alert("준비중 입니다.")} style={{ width: "41px", height: "38px", marginRight: "18px", cursor: 'pointer' }} />
         <a id="kakao-login-btn" onClick={handleLogin}>
         {/* <Img2 src={require("../../img/kakao.png")}alt="카카오 로그인 버튼" /> */}
-        <Kakao style={{ width: "41px", height: "38px" }} />
+        <Kakao style={{ width: "41px", height: "38px", cursor: "pointer"}} />
         </a>
         <p id="token-result"></p>
     </Btns>

@@ -53,12 +53,12 @@ const Detail = () => {
     <Layout>
       <Header />
       <Container>
-        <Carousel fade style={{ height: "196.37px" }}>
+        <Carousel fade>
           {post.imgs !== undefined &&
             post.imgs.map((pic) => {
               if (post.imgs.length !== 0) {
                 return (
-                  <Carousel.Item>
+                  <Carousel.Item style={{width: "318px", height: "166px"}}>
                     <img src={pic} alt="postImg" />
                   </Carousel.Item>
                 );
@@ -141,7 +141,7 @@ const Layout = styled.div`
 const Container = styled.div`
   width: 360px;
   /* height: 466.38px; */
-  height: 473.38px;
+  height: 512.38px;
   overflow-x: hidden;
   overflow-y: auto;
   /* 스크롤바 영역에 대한 설정 */

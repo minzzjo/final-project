@@ -61,6 +61,7 @@ export const Apis = {
   postFileAX: (payload) => file.post(`/api/posts`,payload),
   // 게시글 수정
   putPostAX: (payload) => file.put(`/api/posts/${payload.id}`, payload),
+  // putPostAX: (payload, id) => file.put(`/api/posts/${id}`, payload),
   // 게시글 삭제
   deletePostAX: (id) => token.delete(`/api/posts/${id}`),
   // 게시글 전체 조회

@@ -75,6 +75,7 @@ const EditDetail = ({ onClose }) => {
       })
     );
 
+    // 지금 이 부분부터 오류나서 못 보내지는 상황......
     console.log("폼데이터 글 넣어서 디스패치", formData);
 
     // API 날리기
