@@ -4,13 +4,16 @@ import {
   __getPostTime,
   __getKeyword,
   __getCategory,
-} from "../../redux/modules/postSlice";
+} from "../../../redux/modules/postSlice";
 import styled from "styled-components";
-import "../../App.css";
+import "../../../App.css";
 import Carousel from "react-bootstrap/Carousel";
+import { ReactComponent as Search } from "../../../img/search.svg";
 
 const Content = () => {
   const dispatch = useDispatch();
+  // const searchposts = useSelector((state) => state.post.post.response)
+  // const {posts} = useSelector((state)=>state.post)
 
   //검색
   const [getSearch, setGetSearch] = useState({ search: "" });
@@ -30,11 +33,14 @@ const Content = () => {
   const appKeyPress = (e) => {
     if (e.key === "Enter") {
       onClickSearch();
+      // setGetSearch("")
     }
   };
 
   const onClickAll = () => {
     //전체검색
+    // props.setState(0)
+    // console.log("vmfka",props.state)
     dispatch(__getPostTime()); //문제 온클릭했을때 셋이되기전에 겟을 먼저한다
   };
   const onClickBig = () => {
@@ -57,11 +63,12 @@ const Content = () => {
           defaultValue={getSearch.search || ""}
           onChange={onChangeHandler}
         />
-        <Img
+        {/* <Img
           onKeyPress={appKeyPress}
           onClick={onClickSearch}
-          src={require("../../img/search.png")}
-        />
+          src={require("../../../img/")}
+        /> */}
+        <Search onKeyPress={appKeyPress} onClick={onClickSearch} style={{ marginLeft: "315px", zIndex: 1,  position: "absolute" }} />
       </InputBox>
       <Buttongroup>
         <Button type="button" onClick={onClickAll}>
@@ -78,18 +85,18 @@ const Content = () => {
         </Button>
       </Buttongroup>
       <Carouselwrap>
-        <Carousel>
+        <Carousel id="carousel">
           <Carousel.Item>
-            <SlideImg src={require("../../img/all.png")} />
+            <SlideImg src={require("../../../img/all.png")} />
           </Carousel.Item>
           <Carousel.Item>
-            <SlideImg src={require("../../img/big.png")} />
+            <SlideImg src={require("../../../img/big.png")} />
           </Carousel.Item>
           <Carousel.Item>
-            <SlideImg src={require("../../img/middle.png")} />
+            <SlideImg src={require("../../../img/medium.png")} />
           </Carousel.Item>
           <Carousel.Item>
-            <SlideImg src={require("../../img/small.png")} />
+            <SlideImg src={require("../../../img/small.png")} />
           </Carousel.Item>
         </Carousel>
       </Carouselwrap>
@@ -100,7 +107,6 @@ const Content = () => {
 export default Content;
 
 const SearchListWrap = styled.div`
-  background-color: blue;
   position: relative;
   height: 172px;
 `;
@@ -110,41 +116,53 @@ const Buttongroup = styled.div`
   position: absolute;
   top: 51px;
   z-index: 1;
-  margin-left: 12px;
+  margin-left: 15px;
+  gap: 2px;
 `;
+
 const Button = styled.button`
   width: 79.9px;
   height: 26px;
   border: none;
   background-color: #ddd;
   border-radius: 15px;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 16.71px;
   :hover {
     background-color: #ed9071;
     color: #fff;
   }
 `;
-const Carouselwrap = styled.div``;
+const Carouselwrap = styled.div`
+  position: relative;
+  width: 360px;
+  height: 120px;
+`;
+
 const Input = styled.input`
   position: relative;
   border: none;
   outline: none;
-  border: 1px solid #666;
-  border-radius: 30px;
+  border: 1px solid #6f6f6f;
+  border-radius: 54px;
   width: 95%;
   min-width: 340px;
-  height: 36px;
   text-indent: 12px;
   margin-left: 10px;
+  background-color: transparent;
 `;
 
 const InputBox = styled.div`
+  width: 313.93px;
+  height: 24.99px;
   position: relative;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 37px;
+  display: flex;
+  flex-direction: row;
+
 `;
 const Img = styled.img`
   position: absolute;

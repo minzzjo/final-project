@@ -12,7 +12,7 @@ import Header from "../../Layout/Header";
 import Footer from "../../Layout/Footer";
 import useImgUpload from "../../hooks/useImgUpload";
 import { __addPost } from "../../../redux/modules/postSlice";
-import { ReactComponent as Photo } from "../../../img/photo.svg";
+import { ReactComponent as Photo } from "../../../img/uploadPic.svg";
 
 const Post = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Post = () => {
     title: "",
     price: "",
     content: "",
-    category: "크기",
+    category: "크기선택",
     state: "진행중",
     local: "",
     date: "",
@@ -82,6 +82,7 @@ const Post = () => {
       })
     );
     dispatch(__addPost(formData));
+    // console.log("이게가는지?",formData)
   };
 
   return (
@@ -89,17 +90,6 @@ const Post = () => {
       <Header />
       <Bg>
         <Form>
-          <p
-            style={{
-              fontWeight: 110,
-              fontSize: 32,
-              textAlign: "center",
-              color: "#ED9071",
-              marginTop: 9.7,
-            }}
-          >
-            POST
-          </p>
           <label htmlFor="imgFile" />
           <Carousel fade>
             {fileUrls.map((img) => {
@@ -107,12 +97,11 @@ const Post = () => {
                 <Carousel.Item
                   key={img.id}
                   style={{
-                    height: "169.13px",
-                    width: 318.82,
+                    height: "166px",
                     objectFit: "contain",
                   }}
                 >
-                  <Img src={img ? img : ""} />
+                  <Img style={{ width: "550px" }} src={img ? img : ""} />
                 </Carousel.Item>
               );
             })}
@@ -147,7 +136,7 @@ const Post = () => {
             onChange={onChangeHandler}
             required
           >
-            <option default value="크기">
+            <option default value="대형">
               크기 선택
             </option>
             <option value="대형">대형- 15kg초과</option>
@@ -181,7 +170,6 @@ const Post = () => {
             />
             <P2>원</P2>
           </One>
-
           <Select2
             name="local"
             value={conimal.local || ""}
@@ -207,18 +195,13 @@ const Post = () => {
             <option value="충청남도">충청남도</option>
             <option value="충청북도">충청북도</option>
           </Select2>
-          <textarea
+          <Textarea
             style={{
-              width: "318.82",
-              height: "148.13px",
-              marginBottom: "14.92px",
-              // resize: "none",
-              border: "1px solid rgba(146, 146, 146, 0.95)",
-              borderRadius: "3px",
+              width: "100%",
+              height: "8em",
+              resize: "none",
               textIndent: 10,
-              outline: "none",
-              backgroundColor: "transparent",
-              fontFamily: "Spoqa Han Sans Neo, sans-serif",
+              // outline: "none",
             }}
             name="content"
             value={conimal.content || ""}
@@ -234,7 +217,8 @@ const Post = () => {
           />
         </Form>
       </Bg>
-      <ButtonGroup>
+
+      <ButtonGroup style={{ marginTop: 14 }}>
         <FormBtn1 onClick={() => navigate("/home")}>취소하기</FormBtn1>
         <FormBtn2 onClick={writeSubmit}>업로드</FormBtn2>
       </ButtonGroup>
@@ -256,7 +240,7 @@ const Layout = styled.div`
 const One = styled.div`
   display: flex;
   position: relative;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 16px;
 `;
 const P2 = styled.p`
@@ -267,7 +251,7 @@ const P2 = styled.p`
   color: #787878;
 `;
 const Bg = styled.div`
-  max-height: 466.38px;
+  max-height: 456.38px;
   overflow-x: hidden;
   overflow-y: auto;
   /* 스크롤바 영역에 대한 설정 */
@@ -305,14 +289,14 @@ const ImgUpload = styled.button`
     margin: 10px 0 0 10px;
   } */
   span {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 19.09px;
     margin-left: 11px;
   }
   ::placeholder {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 19.09px;
@@ -335,7 +319,7 @@ const FormBtn1 = styled.button`
   width: 180px;
   height: 50px;
   cursor: pointer;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 18px;
   font-weight: 500;
   background-color: #838383;
@@ -347,7 +331,7 @@ const FormBtn2 = styled.button`
   width: 180px;
   height: 50px;
   cursor: pointer;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 18px;
   font-weight: 510;
   background-color: #ed9071;
@@ -360,9 +344,9 @@ const Input = styled.input`
   outline: none;
   border: 1px solid rgba(146, 146, 146, 0.95);
   border-radius: 3px;
-  background-color: rgba(243, 243, 243, 0.64);
+  background-color: transparent;
   ::placeholder {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 19.09px;
@@ -377,9 +361,10 @@ const Input2 = styled.input`
   outline: none;
   border: 1px solid #333;
   border-radius: 3px;
-  background-color: rgba(243, 243, 243, 0.64);
+  background-color: transparent;
+  font-family: "Pretendard", sans-serif;
   ::placeholder {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 19.09px;
@@ -394,8 +379,9 @@ const Select = styled.select`
   outline: none;
   border: 1px solid rgba(105, 105, 105, 1);
   background-color: rgba(243, 243, 243, 0.64);
+  font-family: "Pretendard", sans-serif;
   select {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 19.09px;
@@ -411,10 +397,25 @@ const Select2 = styled.select`
   border: 1px solid #666;
   border-radius: 3px;
   background-color: rgba(243, 243, 243, 0.64);
+  font-family: "Pretendard", sans-serif;
   select {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 16px;
     font-weight: 300;
+    line-height: 19.09px;
+  }
+`;
+
+const Textarea = styled.textarea`
+  border: 1px solid rgba(146, 146, 146, 0.95);
+  border-radius: 3px;
+  background-color: transparent;
+  padding: 13.85px 0 0 3px;
+  margin-bottom: 14px;
+  ::placeholder {
+    font-family: "Pretendard", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
     line-height: 19.09px;
   }
 `;

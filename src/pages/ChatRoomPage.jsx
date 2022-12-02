@@ -1,31 +1,53 @@
 import styled from "styled-components";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import webstomp from "webstomp-client";
 import SockJS from "sockjs-client";
-import { __getinitialChatList } from "../redux/modules/chattingSlice";
-import { ListReducer } from "../redux/modules/chattingSlice";
-import Modal from "../components/element/Modal";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { __getinitialChatList, ListReducer } from "../redux/modules/chattingSlice";
 import "../App.css";
 import { v4 as uuidv4 } from "uuid";
+import Modal2 from "../components/element/ChatModal/Modal2";
+import { ReactComponent as BackArrow } from "../img/backarrow.svg";
+import { ReactComponent as Send } from "../img/send.svg";
 
 function ChatRoomPage() {
-  const roomId = localStorage.getItem("roomId");
+  const { id } = useParams();
   const navigate = useNavigate();
   const sock = new SockJS(`${process.env.REACT_APP_URL}/ws/chat`);
   const ws = webstomp.over(sock);
   const dispatch = useDispatch();
-  const chatList = useSelector((state) => state.chatting.chatList);
-  const listReducer = useSelector((state) => state.chatting.listReducer);
 
-  // 컴포넌트 마운트시에 소켓 연결 , 채팅방 생성
+  const listReducer = useSelector((state) => state.chatting.chatList);
+  const chatList = useSelector((state) => state.chatting.chatList);
+
+  console.log("쳇리스트", chatList);
+
+  let postId = Number(id);
+
+  //onSubmitHandler
+  useEffect(() => {
+    dispatch(
+      __getinitialChatList({
+        postId: postId,
+        roomId: 1,
+      })
+    );
+
+    return () => {
+      onbeforeunloda();
+    };
+  }, []);
+
   useEffect(() => {
     wsConnectSubscribe();
-    dispatch(__getinitialChatList(roomId));
-    console.log("roomid가 들어와서 get요청되는부분");
-  }, []);
+
+    return () => {
+      onbeforeunloda();
+    };
+  }, [chatList.roomId]);
+  //새로고침 하지 않으면 메시지가 2개로 나오는 issue 떄문에 두번 연결
+  //끊어주지 않으면 또 다시 이전화면 다녀오면 2개 나오는 issue때문에
 
   const [chatBody, setChatBody] = useState("");
 
@@ -41,7 +63,7 @@ function ChatRoomPage() {
   function wsConnectSubscribe() {
     try {
       ws.connect(headers, (frame) => {
-        ws.subscribe(`/sub/${roomId}`, (response) => {
+        ws.subscribe(`/sub/${chatList.roomId}`, (response) => {
           let data = JSON.parse(response.body);
           dispatch(ListReducer(data));
         });
@@ -53,8 +75,10 @@ function ChatRoomPage() {
     setTimeout(
       function () {
         // 연결되었을 때 콜백함수 실행
+
         if (ws.ws.readyState === 1) {
           callback();
+
           // 연결이 안 되었으면 재호출
         } else {
           waitForConnection(ws, callback);
@@ -65,17 +89,34 @@ function ChatRoomPage() {
   }
   //stomp 메시지 에러 waitForConnection함수로 해결
 
+  const onbeforeunloda = () => {
+    try {
+      ws.disconnect(
+        () => {
+          ws.unsubscribe("sub-0");
+          clearTimeout(waitForConnection);
+        },
+
+        { Access_Token: localStorage.getItem("Access_Token") }
+      );
+    } catch (e) {
+      console.log("연결구독해체 에러", e);
+    }
+  };
+  //채팅 메시지 여러개로 나오는것 구독해체로 해결
+
   const inputHandler = (e) => {
     setChatBody(e.target.value);
   };
 
   const onSubmitHandler = (event) => {
+    //event.preventDefault()
     if (chatBody === "" || chatBody === " ") {
       return alert("내용을 입력해주세요.");
     }
     waitForConnection(ws, function () {
       ws.send(
-        `/pub/${roomId}`,
+        `/pub/${chatList.roomId}`,
         JSON.stringify(content),
         {
           Access_Token: localStorage.getItem("Access_Token"),
@@ -103,44 +144,55 @@ function ChatRoomPage() {
     }
   }, [listReducer]);
   //채팅창 치면 맨 밑으로 내려감.
+
   return (
+    // <Modal2></Modal2>
     <LoginContainer>
       <Header>
+        <Modal2/>
         <div>
-          <Img
+          {/* <Img
             onClick={() => navigate(-1)}
-            src={require("../img/backArrow.png")}
-          />
+            src={require("../chatting/chattingImg/png-clipart-computer-icons-arrow-previous-button-angle-triangle.png")}
+          /> */}
+          <BackArrow onClick={() => navigate(-1)} />
         </div>
-
         <div>
           <Nickname>{chatList.postNickname}</Nickname>
-          <Time>30분 전 접속</Time>
+          <Time>30분 전 접속 </Time>
         </div>
-        <Modal />
+        <span>{/* 잠시주석 <Modal2></Modal2> */}</span>
       </Header>
       <Section>
         <Profile>
-          <Img2
-            src={require("../img/postImg.png")}
-          />
+          <Img2>{chatList.postImg}</Img2>
         </Profile>
         <TextBox>
-          <P>
-            <OrangeSpan>{chatList.state}</OrangeSpan>
-            <Span></Span>
-            <Title>{chatList.title}</Title>
-          </P>
+          <OrangeSpan>{chatList.state}</OrangeSpan>
+          <Span></Span>
+          <Title>{chatList.title}</Title>
           <Money>{chatList.price}원</Money>
         </TextBox>
       </Section>
-      <DivAt>날짜</DivAt>
+      <DivAt>날짜 오늘</DivAt>
       <OverFlow sx={{ height: "80%", overflow: "scroll" }}>
-        {chatList.chatList !== undefined &&
-          chatList.chatList !== null &&
-          chatList.chatList.map((item, i) => {
+        {/* { chatList.chatList !== undefined && chatList.chatList !== null &&
+                      chatList.chatList.map((item,i)=>{
+                          return(
+                          
+                          localStorage.getItem('user-nickname') == item.sender ?  
+                        <TextBox key={uuidv4()}><Colorspan>{item.message}</Colorspan></TextBox>
+                        :
+                        <TextBox key={uuidv4()}><Colorspan2>{item.message}</Colorspan2></TextBox>
+                        
+                          )
+                        })
+                      } */}
+        {listReducer.chatList !== undefined &&
+          listReducer.chatList !== null &&
+          listReducer.chatList.map((item, i) => {
             return localStorage.getItem("user-nickname") === item.sender ? (
-              <TextBox key={i}>
+              <TextBox key={uuidv4()}>
                 <Colorspan>{item.message}</Colorspan>
               </TextBox>
             ) : (
@@ -149,18 +201,7 @@ function ChatRoomPage() {
               </TextBox>
             );
           })}
-        {listReducer !== undefined &&
-          listReducer.map((item, i) => {
-            return localStorage.getItem("user-nickname") === item.sender ? (
-              <TextBox key={i}>
-                <Colorspan>{item.message}</Colorspan>
-              </TextBox>
-            ) : (
-              <TextBox key={uuidv4()}>
-                <Colorspan2>{item.message}</Colorspan2>
-              </TextBox>
-            );
-          })}
+
         <div ref={scrollRef}></div>
       </OverFlow>
       <Chatput>
@@ -169,10 +210,19 @@ function ChatRoomPage() {
           onKeyPress={appKeyPress}
           onChange={inputHandler}
         ></Input>
-        <ArrowImg
+        {/* <ArrowImg
+          onSubmit={appKeyPress}
+          onClick={onSubmitHandler}
+          src={require("../chatting/chattingImg/iconSand.png")}
+        /> */}
+        {/* <ArrowImg
           onSubmit={appKeyPress}
           onClick={onSubmitHandler}
           src={require("../img/send.png")}
+        /> */}
+        <Send
+          onSubmit={appKeyPress}
+          onClick={onSubmitHandler}
         />
       </Chatput>
     </LoginContainer>
@@ -200,17 +250,15 @@ const Input = styled.input`
   border: 2px solid #ed9071;
   border-radius: 30px;
   display: inline-block;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: lighter;
   font-size: 12px;
   max-width: calc(100% - 32px);
   min-width: 50px;
 `;
 const Colorspan2 = styled.div`
-  background: #f6f0ee;
+  background: gray;
   color: black;
   padding: 6px;
-
   border-radius: 7px;
   font-size: 12px;
   display: flex;
@@ -218,6 +266,9 @@ const Colorspan2 = styled.div`
   text-align: left;
   width: 170px;
   margin-bottom: 3px;
+  float: right;
+
+  overflow: hidden;
 `;
 const Colorspan = styled.div`
   background: #ed9071;
@@ -225,24 +276,25 @@ const Colorspan = styled.div`
   padding: 8px;
   box-sizing: border-box;
   border-radius: 7px;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 12px;
   display: flex;
   text-align: left;
   width: 150px;
   margin-bottom: 3px;
+
+  overflow: hidden;
 `;
 
 const TextBox = styled.div`
   padding: 4px;
   background: #f6f0ee;
-  min-height: 33.26px;
+  min-height: 20.26px;
   width: 318.82px;
 `;
 
 const OverFlow = styled.div`
   overflow: auto;
-  height: 480px;
+  height: 460px;
   ::-webkit-scrollbar {
     width: 1vw;
   }
@@ -258,7 +310,6 @@ const DivAt = styled.div`
   margin-top: 10px;
   text-align: center;
   color: #787878;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 12px;
   background: #f6f0ee;
 `;
@@ -271,7 +322,6 @@ const Title = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline-block;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-weight: bold;
   font-size: 12px;
 `;
@@ -282,7 +332,6 @@ const Span = styled.span`
 const OrangeSpan = styled.span`
   color: #ed9071;
   font-weight: bold;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
 `;
 const Img = styled.img`
   margin-top: 6px;
@@ -296,12 +345,11 @@ const Img2 = styled.img`
 `;
 
 const Time = styled.span`
-  font-family: "Spoqa Han Sans Neo", sans-serif;
   font-size: 6px;
+  margin-left: 95px;
 `;
 const Nickname = styled.p`
-  margin-left: 5px;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
+  margin-left: 105px;
   font-weight: bold;
   font-size: 15px;
 `;
@@ -316,22 +364,21 @@ const LoginContainer = styled.div`
 const Header = styled.div`
   border-bottom: 1px solid #ed9071;
   background: #f6f0ee;
-  width: 340px;
-  height: 50px;
+  width: 100%;
+  height: 70px;
   display: flex;
-  justify-content: space-between;
+  margin-top: 40px;
 `;
 
 const Section = styled.div`
-  width: 330px;
-  height: 60px;
+  width: 100%;
+  height: 70px;
   display: flex;
   margin-top: 10px;
   padding-left: 10px;
   background: #f6f0ee;
   border-bottom: 1px solid #ed9071;
 `;
-const P = styled.p``;
 
 const Profile = styled.div`
   margin-top: 5px;
@@ -344,7 +391,7 @@ const Profile = styled.div`
 `;
 const Chating = styled.div`
   height: 400px;
-  overflow: hidden;
+  over-flow: hidden;
   background-color: #ffecef;
   text-align: center;
   line-height: 400px;

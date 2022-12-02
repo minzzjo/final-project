@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { __userLogin } from "../redux/modules/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { __userLogin } from "../../src/redux/modules/userSlice";
 import KakaoLogin from "../components/features/Login/KakaoLogin";
+import { ReactComponent as Logo } from "../img/signLogo.svg";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const account = useSelector((state) => state.account);
   const initialState = {
     email: "",
     password: "",
@@ -16,13 +18,12 @@ const SignIn = () => {
   const [IdValid, setIdValid] = useState(false);
   const [PwValid, setPwValid] = useState(false);
   const onChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setLogin({ ...login, [name]: value });
-
-    const regexId =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
-
-    if (regexId.test(login.email)) {
+    const {name, value} = event.target
+    setLogin({...login, [name] : value})
+    
+    const regexId = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g
+    
+    if(regexId.test(login.email)){
       setIdValid(true);
     } else {
       setIdValid(false);
@@ -36,8 +37,9 @@ const SignIn = () => {
   };
   //유효성검사 red 체크
   const onSubmitHandler = (event) => {
-    event.preventDefault();
-    const obj = {
+    event.preventDefault()
+    const obj = 
+    {
       email: login.email,
       password: login.password,
     };
@@ -50,11 +52,9 @@ const SignIn = () => {
         <Wrap>
           <div>
             <LoginBox>
-              {/* <Logos/> */}
+              {/* <img src={require("../img/LogoImg.png")} width="90px" height="70px"/> */}
+              <Logo style={{ marginTop: "36.84px" }} />
               <LogoLogin>LOGIN</LogoLogin>
-              <LogoBtns>
-                <KakaoLogin />
-              </LogoBtns>
 
               <InputBox>
                 <Input
@@ -96,8 +96,15 @@ const SignIn = () => {
               </InputBox>
             </LoginBox>
             <LoginButton onClick={onSubmitHandler}>로그인</LoginButton>
+            <SocialLogin>
+              <span>또는</span>
+              <LogoBtns>
+                <KakaoLogin />
+              </LogoBtns>
+            </SocialLogin>
+            
             <Hr />
-            <SignButton onClick={() => navigate("/signup")}>
+            <SignButton onClick={() => navigate("/")}>
               회원가입
             </SignButton>
             <p id="token-result"></p>
@@ -107,6 +114,7 @@ const SignIn = () => {
     </Layout>
   );
 };
+
 
 export default SignIn;
 
@@ -129,17 +137,17 @@ const Wrap = styled.div`
 `;
 
 const LogoLogin = styled.span`
-  font-family: "Spoqa Han Sans Neo", sans-serif;
+  /* font-family: "Spoqa Han Sans Neo", sans-serif; */
+  font-family: "Pretendard", sans-serif;
   font-size: 32px;
   font-weight: 400;
   line-height: 38.19px;
-  margin: 86.84px auto 30.75px;
+  margin: 5.57px auto 34px;
 `;
 
 const LogoBtns = styled.div`
-  width: 117.99px;
-  height: 44.52px;
-  margin-bottom: 14px;
+  width: 100px;
+  height: 38px;
 `;
 const InputBox = styled.div`
   justify-content: left;
@@ -149,25 +157,25 @@ const Input = styled.input`
   border: 1px solid #929292;
   width: 320px;
   height: 50px;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 12px;
   border-radius: 3px;
   background: transparent;
   padding-left: 14.69px;
   margin: 9px auto 9px;
   ::placeholder {
-    color: #787878;
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    color: rgba(120, 120, 120, 1);
+    font-family: "Pretendard", sans-serif;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 19.09px;
   }
 `;
 
 const Red = styled.div`
   color: #fd6e7f;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
-  font-size: 10px;
+  font-family: "Pretendard", sans-serif;
+  font-size: 10.5px;
   line-height: 11.93px;
   font-weight: 700;
   text-align: left;
@@ -177,8 +185,8 @@ const Red = styled.div`
 
 const Green = styled.div`
   color: #4db173;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
-  font-size: 10px;
+  font-family: "Pretendard", sans-serif;
+  font-size: 10.5px;
   line-height: 11.93px;
   font-weight: 700;
   text-align: left;
@@ -208,15 +216,31 @@ const LoginButton = styled.button`
   border-radius: 3px;
   background-color: #ed9071;
   color: #fff;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 20px;
-  font-weight: 510px;
-  margin: 22.58px auto 36px 14px;
+  font-weight: 600;
+  margin: 22.58px auto 22px 14px;
+`;
+
+const SocialLogin = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.09px;
+  margin-bottom: 24px;
+  color: rgba(120, 120, 120, 1);
+  span {
+    margin-bottom: 12px;
+  }
 `;
 
 const Hr = styled.hr`
   border: 1px solid rgba(153, 153, 153, 0.54);
-  margin-bottom: 36px;
+  margin-bottom: 30.42px;
 `;
 
 const SignButton = styled.button`
@@ -224,10 +248,10 @@ const SignButton = styled.button`
   height: 50px;
   border: none;
   border-radius: 3px;
-  background-color: #838383;
+  background-color: #aeaeae;
   color: #fff;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 20px;
-  font-weight: 510px;
+  font-weight: 600;
   margin: 0 auto 36px 14px;
 `;

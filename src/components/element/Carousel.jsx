@@ -1,8 +1,8 @@
 import Carousel from "react-bootstrap/Carousel";
-import { ReactComponent as Photo } from "../../img/photo.svg";
+import { ReactComponent as Photo } from "../../img/previewPic.svg";
 
 const Carousels = ({ imgUrls }) => {
-  return (
+  return ( 
     <Carousel variant="dark">
       <Carousel.Item>
         {imgUrls.length !== 0 ? (

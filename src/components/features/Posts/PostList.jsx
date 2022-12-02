@@ -1,128 +1,254 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { __getPostTime } from "../../../redux/modules/postSlice";
+import React, { useEffect } from 'react'	
+import { useNavigate } from 'react-router-dom'		
+import { useDispatch, useSelector } from 'react-redux'
+import { __getPostTime } from"../../../redux/modules/postSlice"	
 import styled from "styled-components";
-import "../../../App.css";
+import { ReactComponent as Date } from "../../../img/mainDate.svg";
+import { ReactComponent as Place } from "../../../img/mainPlace.svg";
+import '../../../App.css';
 
-const PostList = () => {
-  const navigator = useNavigate();
-  const dispatch = useDispatch();
-  const posts = useSelector((state) => state.post.post.response);
+const PostList = () => {	
+  const navigator = useNavigate();	
+  const dispatch = useDispatch()
+  const posts = useSelector((state) => state.post.post.response)
+  // console.log("유즈셀렉",posts)
   useEffect(() => {
-    dispatch(__getPostTime());
+    dispatch(
+      __getPostTime()
+    );
   }, [dispatch]);
+  
+  return (	
+      <Layouts>
+        { posts !== undefined &&
+          posts.map((post) =>  {	
+            return (
+              <Content
+                onClick={() => {
+                  navigator(`/Detail/${post.id}`);
+                }}
+                key={post.id}
+              >
+                <Body className="wrap">
+                  <Text>
+                    <Top className="top">
+                      <TopLeft className="top-left">
+                        <Category>
+                          {post.category}
+                        </Category>
+                        <Main className="title">
+                          <State>
+                            {post.state}
+                          </State>
+                          &nbsp;
+                          <Title>{post.title}</Title>
+                        </Main>
+                        <Created>
+                          {post.createdAt}
+                        </Created>
+                      </TopLeft>
+                    </Top>
 
-  return (
-    <Listmap>
-      {posts !== undefined &&
-        posts.map((post) => {
-          return (
-            <ListBox
-              onClick={() => {
-                navigator(`/Detail/${post.id}`);
-              }}
-              key={post.id}
-            >
-              <Div1>
-                <div>
-                  <Strong>{post.category}</Strong>
-                  <Text1>
-                    {post.state}
-                    <Span>{post.title}</Span>
-                  </Text1>
-                  <Text2>{post.createdAt}</Text2>
-                </div>
-              </Div1>
-              <Div1>
-                <div>
-                  <Strong style={{ fontWeight: 400 }}>
-                    <img
-                      style={{ marginRight: 5 }}
-                      src={require("../../../img/calender.png")}
-                      alt=""
-                    />
-                    {post.date}
-                  </Strong>
-                  <Strong style={{ fontWeight: 400, marginLeft: 10 }}>
-                    <img
-                      style={{ width: 11, marginRight: 5 }}
-                      src={require("../../../img/markup.png")}
-                      alt=""
-                    />
-                    {post.local}
-                  </Strong>
-                </div>
-                <Flex2>
-                  <PriceBox>
-                    <p>{post.price.toLocaleString("ko-KR")}원</p>
-                  </PriceBox>
-                </Flex2>
-              </Div1>
-            </ListBox>
-          );
-        })}
-    </Listmap>
-  );
-};
-export default PostList;
+                    <Down className="down">
+                      <DownLeft className="left">
+                        <When>
+                          <Date /> {post.date}
+                        </When>
+                        <Places>
+                          <Place /> {post.local}
+                        </Places>
+                      </DownLeft>
+                      <DownRight className="right">
+                        <Price>{post.price.toLocaleString("ko-KR")}원</Price>                        
+                      </DownRight>
+                    </Down>
+                  </Text>
+                </Body>
+              </Content>
+            );
+        })   
+        }
+      </Layouts>
+  )	
+}	
+export default PostList ;	
 
-const ListBox = styled.div`
-  position: relative;
-  background-color: #fff;
-  padding: 19px 14px 19px 14px;
-  margin-top: 10px;
-`;
-const Strong = styled.strong`
-  font-family: "Spoqa Han Sans Neo", sans-serif;
-  font-size: 13px;
-`;
-
-const Div1 = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Flex2 = styled.div`
-  margin-top: 5px;
-`;
-const Listmap = styled.div`
+const Layouts = styled.div`
   width: 360px;
-  max-height: 344.96px;
-  margin: auto;
-  overflow: auto;
+  height: 315.96px;
+  margin: 32.17px auto 0;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* 스크롤바 영역에 대한 설정 */
   ::-webkit-scrollbar {
-    display: none;
+    width: 5px;
+  }
+
+  /* 스크롤바 막대에 대한 설정 */
+  ::-webkit-scrollbar-thumb {
+    height: 20%;
+    background-color: #d8d8d8;
+    border-radius: 20px;
+  }
+
+  /* 스크롤바 뒷 배경에 대한 설정 */
+  ::-webkit-scrollbar-track {
+    background-color: #f6f0ee;
   }
 `;
-const Text1 = styled.p`
-  font-family: "Spoqa Han Sans Neo", sans-serif;
-  color: #ed9071;
+
+const Content = styled.div`
+  cursor: pointer;
+`;
+
+const Body = styled.div`
+  background-color: #fff;
+  width: 360px;
+  height: 100.53px;
+  margin: 9px auto 10.47px;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Text = styled.div`
+  width: 317.36px;
+  height: 72.23px;
+  margin: auto;
+`;
+
+const Top = styled.div`
+  width: 313px;
+  height: 46px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  gap: 143px;
+`;
+
+const TopLeft = styled.div`
+  width: 300px;
+  height: 44.78px;
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 16.24px;
+`;
+
+const Category = styled.div`
+  font-family: "Pretendard", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 13.53px;
+  margin-bottom: 4px;
+  margin-top: -5px;
+`;
+
+const State = styled.div`
+  color: #FD9071;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 16.24px;
+  margin-bottom: 2px;
+`;
+
+const Title = styled.div`
+  font-family: "Pretendard", sans-serif;
+  font-size: 15px;
+  font-weight: 450;
+  line-height: 16.24px;
+`;
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2.78px;
+`;
+
+const Created = styled.div`
+  font-family: "Pretendard", sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 10.74px;
+  margin-bottom: 9.87px;
+`;
+
+const When = styled.div`
+  font-family: "Pretendard", sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 10.74px;
+`;
+
+const Places = styled.div`
+  font-family: "Pretendard", sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 10.74px;
+`;
+
+const Price = styled.span`
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
   font-weight: 600;
-  font-size: 17px;
-  margin: 0;
+  line-height: 19.09px;
 `;
-const Text2 = styled.p`
-  font-size: 14px;
-  margin: 0;
+
+const Down = styled.div`
+  /* background-color: lightcoral; */
+  width: 317.9px;
+  height: 27.95px;
+
+  font-family: "Pretendard", sans-serif;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  gap: 84px;
 `;
-const Span = styled.span`
-  color: #000;
-  margin-left: 10px;
-  font-size: 18px;
-  font-weight: 500;
+
+const DownLeft = styled.div`
+  /* background-color: lightyellow; */
+  width: 150px;
+  height: 17px;
+
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 10px;
+  gap: 8px;
+  margin-top: -5px;
 `;
-const PriceBox = styled.div`
-  position: absolute;
-  left: 230px;
-  top: 77px;
-  width: 100px;
-  height: 36px;
-  font-size: 20px;
-  font-weight: 600;
-  color: #fff;
-  text-align: center;
-  line-height: 36px;
+
+const DownRight = styled.div`
   background-color: #ed9071;
-  border-radius: 3px;
+  width: 83.9px;
+  height: 27.95px;
+  line-height: 19px;
+  border-radius: 2px;
+
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.09px;
+  color: #fff;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: -20px;
 `;

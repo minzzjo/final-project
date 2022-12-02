@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { __getMyPage, __getMyPet, __getMyPost } from "../redux/modules/mypageSlice";
 import Mytab from "../components/features/Mypage/mypageTab";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import styled from "styled-components";
+import { ReactComponent as MyKakao } from "../img/kakaoMy.svg";
+import { ReactComponent as NoticeArrow } from "../img/noticeArrow.svg";
 import User from "../img/user.png";
-import { ReactComponent as Kakao } from "../img/mykakao.svg";
-import { ReactComponent as NoticeArrow } from "../img/notice-arrow.svg";
 import Banner from "../img/banner.png";
 import ModalPortal from "../components/element/ModalPortal";
 import AddPetInfo from "../components/features/Mypage/AddPetInfo";
 import "../components/element/MyPetModal.css";
+import AddUserPic from "../components/features/Mypage/AddUserPic";
 
 // 전체 마이페이지 뷰 - 프로필사진, 닉네임, (평점), 내가 쓴 글 목록, 나의 반려동물 목록
 
 const MyPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const all = useSelector((state) => state.mypage);
   const post = useSelector((state) => state.mypage.post);
   const myInfo = useSelector((state) => state.mypage.myInfo);
@@ -34,6 +37,16 @@ const MyPage = () => {
 
   console.log("프사 이미지 가져오나", myInfo.userImage);
 
+  const [photo, setPhoto] = useState(false);
+
+  const openPicModal = () => {
+    setPhoto(true)
+  }
+
+  const closePicModal = () => {
+    setPhoto(false)
+  }
+
   const [pets, setPets] = useState(false)
 
   const openPetModal = () => {
@@ -42,6 +55,11 @@ const MyPage = () => {
 
   const closePetModal = () => {
     setPets(false)
+  }
+
+  const Logout = () => {
+    localStorage.clear()
+    navigate("/")
   }
 
   // 마이페이지 회원정보 조회
@@ -78,7 +96,7 @@ const MyPage = () => {
             <Account>
               <UserInfo>
                 <span>{myInfo.nickname}</span>
-                <Kakao />
+                <MyKakao />
               </UserInfo>
               <span
                 style={{
@@ -93,6 +111,7 @@ const MyPage = () => {
           </Info>
           <StateBtn>
             <button
+              onClick={Logout}
               style={{
                 color: "rgba(185, 185, 185, 1)",
                 border: "1px solid rgba(185, 185, 185, 1)",
@@ -101,6 +120,7 @@ const MyPage = () => {
               로그아웃
             </button>
             <button
+              onClick={openPicModal}
               style={{
                 color: "rgba(108, 108, 108, 1)",
                 border: "1px solid rgba(108, 108, 108, 1)",
@@ -108,6 +128,13 @@ const MyPage = () => {
             >
               사진수정
             </button>
+            {photo && (
+              <ModalPortal>
+                <div className="MyModal">
+                  <AddUserPic onClose={closePicModal}/>
+                </div>                
+              </ModalPortal>
+            )}
           </StateBtn>
         </Title>
         <PetBtn>
@@ -157,16 +184,16 @@ const Notice = styled.div`
   border-radius: 4px;
 
   span {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 900;
     line-height: 15.51px;
     color: rgba(238, 139, 106, 1);
-    margin-left: 15.68px;
+    /* margin-left: 15.68px; */
   }
 
   p {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 13px;
     font-weight: 400;
     line-height: 15.51px;
@@ -200,7 +227,7 @@ const PetBtn = styled.div`
   border-radius: 1px;
   button {
     color: #fff;
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 16px;
     font-weight: 450;
     line-height: 18.15px;
@@ -241,7 +268,7 @@ const Info = styled.div`
     justify-content: center;
 
     color: #fff;
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-weight: bold;
     font-size: 12px;
     margin-bottom: 3.9px;
@@ -256,11 +283,12 @@ const StateBtn = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   button {
     width: 79.09px;
     height: 21px;
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-weight: 700;
     font-size: 11px;
     background-color: transparent;
@@ -276,7 +304,7 @@ const Account = styled.div`
   /* align-items: center; */
   gap: 5.96px;
   span {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-weight: 700;
     font-size: 15px;
     line-height: 17.9px;
@@ -290,7 +318,7 @@ const UserInfo = styled.div`
   align-items: center;
 
   span {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-weight: 700;
     font-size: 20px;
     line-height: 23.87px;

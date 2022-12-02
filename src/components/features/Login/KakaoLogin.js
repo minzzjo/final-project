@@ -1,30 +1,52 @@
 import React from 'react'
-// import Img from "../../img/NAVERLOGO.png";
-import { ReactComponent as Naver } from "../../../img/naver.svg";
-import { ReactComponent as Kakao } from '../../../img/kakao.svg';
+import styled from "styled-components"
+import { ReactComponent as Naver } from "../../../img/naverLogo.svg";
+import { ReactComponent as Kakao } from "../../../img/kakaoLogo.svg";
 
 const KakaoLogin = () => {
     const REST_API_KEY = process.env.REACT_APP_API_KAKAO_ID
     const REDIRECT_URI = process.env.REACT_APP_API_URL
+    //console.log(REDIRECT_URI,REST_API_KEY,"확인")
+    // const location = useLocation();
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     const handleLogin = () => {
         window.location.href = KAKAO_AUTH_URL;
     }
     return (
-    <div>
-        {/* <img onClick={()=>alert("준비중 입니다.")} src={require("../../img/NAVERLOGO.png")} alt="네이버 로그인 버튼"  /> */}
-        <Naver onClick={() => alert("준비중 입니다.")}/>
+    <Btns>
+        {/* <Img onClick={()=>alert("준비중 입니다.")} src={require("../../img/NAVERLOGO.png")} alt="네이버 로그인 버튼"  /> */}
+        <Naver onClick={() => alert("준비중 입니다.")} style={{ width: "41px", height: "38px", marginRight: "18px" }} />
         <a id="kakao-login-btn" onClick={handleLogin}>
-            {/* <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
-            alt="카카오 로그인 버튼" /> */}
-          <Kakao/>
-            
+        {/* <Img2 src={require("../../img/kakao.png")}alt="카카오 로그인 버튼" /> */}
+        <Kakao style={{ width: "41px", height: "38px" }} />
         </a>
         <p id="token-result"></p>
-    </div>
+    </Btns>
     )
 }
 
 
 export default KakaoLogin
+
+const Btns = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:center ;
+`
+
+const Img2 = styled.img`  
+width:45px;
+height:43px;
+box-shadow: 2px 2px 6px gray;
+
+background-color:green;
+`
+const Img = styled.img`
+height:43px;
+box-shadow: 2px 2px 6px gray;
+margin-right:20px;
+
+background-color:green;
+`
