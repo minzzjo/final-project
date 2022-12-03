@@ -12,7 +12,7 @@ import Header from "../../Layout/Header";
 import Footer from "../../Layout/Footer";
 import useImgUpload from "../../hooks/useImgUpload";
 import { __addPost } from "../../../redux/modules/postSlice";
-import { ReactComponent as Photo } from "../../../img/uploadPic.svg";
+import { ReactComponent as Photo } from "../../../img/photo.svg";
 
 const Post = () => {
   const navigate = useNavigate();
