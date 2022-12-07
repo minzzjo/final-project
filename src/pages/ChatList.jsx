@@ -1,15 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import "../styles/ChatList.css";
+import React, { useEffect } from "react";
+import Header from "../components/Layout/Header";
+import Footer from "../components/Layout/Footer";
+import Layouts from "../components/Layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import { __getinitialChatList, __getRoomList } from "../redux/modules/chattingSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  __getinitialChatList2,
+  __getRoomList,
+} from "../redux/modules/chattingSlice";
 
 const ChatList = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const navigator = useNavigate();
+  const dispatch = useDispatch();
   const Room = useSelector((state) => state.chatting.roomList);
 
   useEffect(() => {
@@ -17,50 +21,90 @@ const ChatList = () => {
   }, []);
 
   const onClickChatting = (item) => {
-    navigator(`/ChatRoomPage/${item.postId}`);
-
-    dispatch(
-      __getinitialChatList({
-        postId: item.postId,
-        roomId: item.roomId,
-      })
+    navigator(`/ChatRoomPage/${item.roomId}`)
+    setTimeout(
+    function () {
+    dispatch(__getinitialChatList2(item.roomId)
     );
-  };
-  //들어갈때 get요청
+    }
+    ,200 
+    );
+    }
+  
+  //리스트방에서 빠져나오면 로컬스토리에서 최근 날짜 없앰 그리고 로컬스토리지 단한번 만실행
+  //채팅 샌드할때
 
   return (
-    <>
-      {Room !== undefined &&
-        Room !== [] &&
-        Room.map((item, i) => {
-          return (
-            <div key={i}>
-              <span>{item.title}</span>
-              <span>
-                <LoginButton onClick={() => onClickChatting(item)}>
-                  {item.postId}번방
-                </LoginButton>
-              </span>
-            </div>
-          );
-        })}
-    </>
+    <Layouts>
+      <Header />
+
+      <div className="line"></div>
+      <div className="overflow">
+        {Room !== undefined && Room !== null ? (
+          Room.map((item, i) => {
+            return (
+              <div className="root" key={i}>
+                <div className="flexDiv">
+                  <img
+                    className="Userimg"
+                    src={`${item.postUserImg}`}
+                    alt=""
+                    onClick={() => onClickChatting(item)}
+                  />
+                  <div className="marginDiv">
+                    <span
+                      className="boldText"
+                      onClick={() => onClickChatting(item)}
+                    >
+                      {
+                        localStorage.getItem("user-nickname") ==
+                        item.joinUserNickname
+                          ? item.postUserNickname
+                          : item.joinUserNickname
+
+                        //내 아이디명이 아닌 상대방 아이디
+                      }
+                    </span>
+                    <div
+                      className="chatlength"
+                      onClick={() => onClickChatting(item)}
+                    >
+                      {item.chatList[item.chatList.length - 1] !== undefined &&
+                        item.chatList[item.chatList.length - 1].message
+                        }
+                    
+                    </div>
+
+                    <span className="whiteTime">
+                       {item.chatList[item.chatList.length - 1] !== undefined &&
+                        `${item.chatList[item.chatList.length - 1].sendDate.substring(5, 7)}월`}
+
+
+                      {item.chatList[item.chatList.length - 1] !== undefined &&
+                        `${item.chatList[
+                          item.chatList.length - 1
+                        ].sendDate.substring(8, 10)}일`} 
+                    </span>
+                  </div>
+                  {
+                    item.postImg.length !== 0 && 
+                    
+                  <img className="img" src={`${item.postImg}`}/>
+                  
+                  } 
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <>
+            <div>채팅내역이 없습니다.</div>
+            <button onClick={() => navigator(-1)}>이전으로</button>
+          </>
+        )}
+      </div>
+      <Footer />
+    </Layouts>
   );
 };
-
 export default ChatList;
-
-const LoginButton = styled.button`
-  font-size: 18px;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  font-weight: bold;
-  width: 253px;
-  height: 40px;
-  margin-top: 30px;
-
-  // 버튼 누르면 손모양 나오게 하는 마우스 커서
-  cursor: pointer;
-  background-color: #ed9071;
-`;

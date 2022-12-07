@@ -26,5 +26,4 @@ const HomePage = styled.div`
   margin: auto;
   background-color: #FFF;
   /* background-color: #F6F0EE; */
-  /* background-color: #F5F5F5; */
 `

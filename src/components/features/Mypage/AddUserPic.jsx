@@ -70,16 +70,14 @@ const AddUserPic = ({ onClose }) => {
         {/* 이미지 미리보기 Preview */}
         {/* <img src={imgsUrls} style={imgsUrls !== "" ? { visibility: "visible"} : {visibility: "hidden"}} alt="" /> */}
         {imgsUrls.length !== 0 ? (
-                    imgsUrls.map((imgs, id) => {
-                      return (
-                        <img src={imgs} alt="업로드 사진 미리보기" key={id} />
-                      );
-                    })
-                  ) : (
-                    <PicNote>
-                      <Photo /> <span>이미지 미리보기</span>
-                    </PicNote>
-                  )}
+          imgsUrls.map((imgs, id) => {
+            return <img src={imgs} alt="업로드 사진 미리보기" key={id} />;
+          })
+        ) : (
+          <PicNote>
+            <Photo /> <span>이미지 미리보기</span>
+          </PicNote>
+        )}
       </ImgPreview>
       <Btns>
         <button
@@ -109,20 +107,20 @@ const Layout = styled.div`
   width: 330px;
   height: 250px;
   margin: auto;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 10px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const ImgUpload = styled.button`
   /* margin: 10px 0 10px 100px; */
   border: none;
   border-radius: 10px;
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
   margin: 10px auto 12px;
   img {
     align-items: center;
@@ -142,7 +140,7 @@ const ImgPreview = styled.div`
 
   border: 1px solid #e2e2e2;
   border-radius: 10px;
-  background-color: #FFF;
+  background-color: #fff;
 
   margin: 0 auto 30px;
 
@@ -158,7 +156,7 @@ const Btns = styled.div`
     width: 165px;
     height: 40px;
     border: none;
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 19.09px;
@@ -171,7 +169,7 @@ const PicNote = styled.div`
   justify-content: center;
   /* margin-top: 65.33px; */
   span {
-    font-family: "Spoqa Han Sans Neo", sans-serif;
+    font-family: "Pretendard", sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 19.09px;
