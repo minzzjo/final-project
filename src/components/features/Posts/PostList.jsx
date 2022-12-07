@@ -100,6 +100,8 @@ const Layouts = styled.div`
 
 const Content = styled.div`
   cursor: pointer;
+  border-left: 0.5px solid #F6F0EE;
+  border-right: 0.5px solid #F6F0EE;
 `;
 
 const Body = styled.div`
